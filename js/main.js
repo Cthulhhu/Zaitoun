@@ -21,50 +21,31 @@ function initializeSlideshow() {
     const slideshow = $(".slideshow-container");
     slideshow.empty();
 
-    // Create slideshow structure
     slides.forEach((slide, index) => {
-        const slideDiv = $("<div>")
-            .addClass("slide")
-            .css({
-                display: index === 0 ? "block" : "none",
-                position: "relative",
-                height: "100%"
-            });
+        const slideDiv = $("<div>", {
+            class: "slide",
+            css: { display: index === 0 ? "block" : "none" }
+        });
 
-        const img = $("<img>")
-            .attr("src", slide.image)
-            .attr("alt", slide.caption)
-            .css({
-                width: "100%",
-                height: "100%",
-                objectFit: "cover"
-            });
+        $("<img>", {
+            src: slide.image,
+            alt: slide.caption
+        }).appendTo(slideDiv);
 
-        const caption = $("<div>")
-            .addClass("slide-caption")
-            .text(slide.caption)
-            .css({
-                position: "absolute",
-                bottom: "20px",
-                left: "0",
-                right: "0",
-                textAlign: "center",
-                color: "white",
-                backgroundColor: "rgba(0,0,0,0.5)",
-                padding: "15px"
-            });
+        $("<div>", {
+            class: "slide-caption",
+            text: slide.caption
+        }).appendTo(slideDiv);
 
-        slideDiv.append(img, caption);
         slideshow.append(slideDiv);
     });
 
     // Slideshow animation
     let currentSlide = 0;
     setInterval(() => {
-        const slides = $(".slide");
-        $(slides[currentSlide]).fadeOut(1000);
+        $(".slide").fadeOut(1000);
         currentSlide = (currentSlide + 1) % slides.length;
-        $(slides[currentSlide]).fadeIn(1000);
+        $(".slide").eq(currentSlide).fadeIn(1000);
     }, 5000);
 }
 
