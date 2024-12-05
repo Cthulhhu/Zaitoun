@@ -1,28 +1,71 @@
 {
-    "specials": [
-      {
-        "id": 1,
-        "name": "Musakhan",
-        "description": "Traditional Palestinian roasted chicken with caramelized onions, sumac, and pine nuts served on fresh taboon bread",
-        "price": 28.00,
-        "image": "/api/placeholder/300/200",
-        "dietary": ["halal"]
-      },
-      {
-        "id": 2,
-        "name": "Maqluba",
-        "description": "Upside-down layered dish of rice, eggplant, cauliflower, and lamb, garnished with toasted almonds and parsley",
-        "price": 32.00,
-        "image": "/api/placeholder/300/200",
-        "dietary": ["halal"]
-      },
-      {
-        "id": 3,
-        "name": "Kunafa Nabulsiya",
-        "description": "Traditional Palestinian dessert made with shredded phyllo dough, sweet cheese, and aromatic syrup, topped with pistachios",
-        "price": 12.00,
-        "image": "/api/placeholder/300/200",
-        "dietary": ["vegetarian"]
-      }
+    "appetizers": [
+        {
+            "name": "Hummus",
+            "arabicName": "حمص",
+            "description": "Creamy chickpea dip with tahini, olive oil, and our special spice blend",
+            "price": 8.99,
+            "image": "hummus.jpg"
+        },
+        {
+            "name": "Mutabbal",
+            "arabicName": "متبل",
+            "description": "Smoky eggplant dip with tahini, garlic, and olive oil",
+            "price": 8.99,
+            "image": "mutabbal.jpg"
+        },
+        {
+            "name": "Falafel",
+            "arabicName": "فلافل",
+            "description": "Crispy chickpea fritters served with tahini sauce",
+            "price": 7.99,
+            "image": "falafel.jpg"
+        }
+    ],
+    "mainCourses": [
+        {
+            "name": "Musakhan",
+            "arabicName": "مسخن",
+            "description": "Roasted chicken with caramelized onions and sumac on taboon bread",
+            "price": 24.99,
+            "image": "musakhan.jpg"
+        },
+        {
+            "name": "Mansaf",
+            "arabicName": "منسف",
+            "description": "Traditional lamb cooked in fermented dried yogurt sauce served with rice",
+            "price": 27.99,
+            "image": "mansaf.jpg"
+        },
+        {
+            "name": "Maqluba",
+            "arabicName": "مقلوبة",
+            "description": "Upside-down rice dish with chicken, eggplant, and cauliflower",
+            "price": 23.99,
+            "image": "maqluba.jpg"
+        }
+    ],
+    "desserts": [
+        {
+            "name": "Knafeh",
+            "arabicName": "كنافة",
+            "description": "Sweet cheese pastry with crispy shredded phyllo and orange blossom syrup",
+            "price": 9.99,
+            "image": "knafeh.jpg"
+        },
+        {
+            "name": "Qatayef",
+            "arabicName": "قطايف",
+            "description": "Sweet dumplings filled with walnuts or cheese, drizzled with syrup",
+            "price": 8.99,
+            "image": "qatayef.jpg"
+        },
+        {
+            "name": "Baklawa",
+            "arabicName": "بقلاوة",
+            "description": "Layered phyllo pastry filled with nuts and honey syrup",
+            "price": 7.99,
+            "image": "baklawa.jpg"
+        }
     ]
-  }
+}

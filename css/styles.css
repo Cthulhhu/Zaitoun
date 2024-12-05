@@ -1,292 +1,360 @@
-/* Reset and Base Styles */
+:root {
+    --palestinian-red: #E4312B;
+    --palestinian-black: #000000;
+    --palestinian-white: #FFFFFF;
+    --palestinian-green: #149954;
+    --text-color: #333333;
+    --background-light: #F5F5F5;
+    --olive-accent: #8B8B4B;
+    --sand-accent: #E5D3B3;
+}
+
+/* Dark Theme Variables */
+.dark-theme {
+    --text-color: #E5D3B3;
+    --background-light: #2C2C2C;
+    --palestinian-white: #333333;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    --palestinian-red: #E4312b;
-    --palestinian-green: #149954;
-    --white: #FFFFFF;
-    --black: #333333;
-    --accent-gold: #DAA520;
+@font-face {
+    font-family: 'Amiri';
+    src: url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: var(--black);
-    background-color: var(--white);
+    color: var(--text-color);
+    overflow-x: hidden;
 }
 
-/* Container width as per requirements */
-.header-content,
-main section,
-.footer-content {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 20px;
+/* Theme Toggle */
+#theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+}
+
+#theme-button {
+    background: var(--palestinian-black);
+    color: var(--palestinian-white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#theme-button:hover {
+    background: var(--palestinian-green);
 }
 
 /* Header Styles */
 header {
-    background-color: var(--white);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: sticky;
+    background-color: var(--palestinian-white);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
     top: 0;
-    z-index: 100;
-    border-bottom: 4px solid var(--palestinian-green);
+    z-index: 1000;
+    transition: all 0.3s ease;
 }
 
-.header-content {
+nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-}
-
-.logo h1 {
-    font-size: 2.5em;
-    color: var(--palestinian-red);
-    font-family: 'Georgia', serif;
-}
-
-.tagline {
-    color: var(--palestinian-green);
-    font-style: italic;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-}
-
-nav a {
-    text-decoration: none;
-    color: var(--black);
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-nav a:hover {
-    color: var(--palestinian-red);
-}
-
-/* Hero Section */
-.hero-section {
-    height: 500px;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 40px;
-}
-
-.slideshow-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-.slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: none;
-}
-
-.slide:first-child {
-    display: block;
-}
-
-.slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.slide-caption {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 15px;
-    font-size: 24px;
-}
-
-/* About Section */
-.about-section {
-    padding: 60px 20px;
-    background-color: var(--white);
-    border-bottom: 2px solid var(--palestinian-green);
-}
-
-.about-content {
-    max-width: 800px;
+    padding: 1rem 2rem;
+    max-width: 1280px;
     margin: 0 auto;
 }
 
-.chef-feature {
-    margin-top: 40px;
-    padding: 20px;
-    border-left: 4px solid var(--palestinian-red);
+.logo {
+    text-align: center;
+}
+
+.logo h1 {
+    font-family: 'Amiri', serif;
+    color: var(--palestinian-green);
+    font-size: 2.5rem;
+    margin-bottom: 0.2rem;
+}
+
+.arabic-name {
+    color: var(--palestinian-red);
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+}
+
+.tagline {
+    color: var(--olive-accent);
+    font-size: 0.9rem;
+}
+
+#main-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+#main-menu a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+#main-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--palestinian-green);
+    transition: width 0.3s ease;
+}
+
+#main-menu a:hover {
+    color: var(--palestinian-green);
+}
+
+#main-menu a:hover::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/hero-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--palestinian-white);
+}
+
+.hero-content {
+    padding: 2rem;
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 10px;
+    max-width: 800px;
+}
+
+.hero h2 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.arabic-welcome {
+    font-family: 'Amiri', serif;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 /* Menu Section */
+.menu {
+    padding: 4rem 2rem;
+    background-color: var(--background-light);
+}
+
+.menu-tabs {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
 .menu-section {
-    padding: 60px 20px;
-    background: linear-gradient(to bottom, var(--white) 0%, rgba(20, 153, 84, 0.1) 100%);
-}
-
-#menu-tabs {
-    margin-top: 30px;
-    border: none;
-}
-
-.ui-tabs .ui-tabs-nav {
-    background: none;
-    border: none;
-    padding: 0;
-}
-
-.ui-tabs .ui-tabs-nav li {
-    background: var(--white);
-    border: 2px solid var(--palestinian-green);
-    border-radius: 4px;
-    margin: 0 5px;
-}
-
-.ui-tabs .ui-tabs-nav li.ui-tabs-active {
-    background: var(--palestinian-green);
-}
-
-.ui-tabs .ui-tabs-nav li.ui-tabs-active a {
-    color: var(--white);
-}
-
-/* Specials Section */
-.specials-section {
-    padding: 60px 20px;
-    background-color: var(--white);
-    border-top: 2px solid var(--palestinian-red);
-}
-
-.specials-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
+    gap: 2rem;
+    padding: 2rem 0;
 }
 
-.special-card {
-    border: 2px solid var(--palestinian-green);
-    border-radius: 8px;
+.menu-item {
+    background: var(--palestinian-white);
+    border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
 }
 
-.special-card:hover {
+.menu-item:hover {
     transform: translateY(-5px);
 }
 
-.special-card img {
+.menu-item img {
     width: 100%;
     height: 200px;
     object-fit: cover;
 }
 
-.special-card h3 {
+.menu-item-details {
+    padding: 1.5rem;
+}
+
+.menu-item-details h3 {
+    color: var(--palestinian-green);
+    margin-bottom: 0.5rem;
+}
+
+.menu-item-details .arabic-name {
+    font-family: 'Amiri', serif;
     color: var(--palestinian-red);
-    padding: 15px;
+    margin-bottom: 0.5rem;
 }
 
-/* Reservations Section */
-.reservations-section {
-    padding: 60px 20px;
-    background: linear-gradient(to bottom, rgba(228, 49, 43, 0.1) 0%, var(--white) 100%);
+.price {
+    color: var(--olive-accent);
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
-.reservation-form {
-    max-width: 600px;
+/* Gallery Section */
+.gallery {
+    padding: 4rem 2rem;
+    background-color: var(--palestinian-white);
+}
+
+.gallery-slider {
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 30px;
-    border: 2px solid var(--palestinian-green);
-    border-radius: 8px;
-    background: var(--white);
 }
 
-.form-group {
-    margin-bottom: 20px;
+.gallery-slider img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
+/* Contact Section */
+.contact {
+    padding: 4rem 2rem;
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('images/contact-background.jpg');
+    background-size: cover;
+    background-position: center;
+    color: var(--palestinian-white);
+}
+
+.contact-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.contact-info, .reservation-form {
+    padding: 2rem;
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 10px;
+}
+
+.reservation-form input,
+.reservation-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255,255,255,0.9);
+}
+
+.reservation-form button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--palestinian-green);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.reservation-form button:hover {
+    background-color: var(--olive-accent);
+}
+
+/* Footer */
+footer {
+    background-color: var(--palestinian-black);
+    color: var(--palestinian-white);
+    padding: 3rem 2rem 1rem 2rem;
+}
+
+.footer-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+    color: var(--palestinian-green);
+    margin-bottom: 1rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    color: var(--palestinian-white);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
     color: var(--palestinian-green);
 }
 
-input,
-select,
-textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
 }
 
-textarea {
-    height: 100px;
-    resize: vertical;
+/* Animations and Transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Preferences Section */
-.preferences-section {
-    padding: 60px 20px;
-    background-color: var(--white);
-    border-top: 2px solid var(--palestinian-green);
+.menu-item, .about-content, .contact-container {
+    animation: fadeIn 1s ease-out;
 }
 
-.preferences-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 30px;
-    border: 2px solid var(--palestinian-red);
-    border-radius: 8px;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
 
-/* Button Styles */
-.btn-primary,
-.btn-secondary {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
+    #main-menu ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
 
-.btn-primary {
-    background-color: var(--palestinian-green);
-    color: var(--white);
-}
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
 
-.btn-primary:hover {
-    background-color: #107a44;
-    transform: translateY(-2px);
+    .hero h2 {
+        font-size: 2.5rem;
+    }
 }
-
-.btn-secondary {
-    background-color: var(--palestinian-red);
-    color: var(--white);
-}
-
-.btn-secondary:hover {
-    background-color: #c42820;
-    transform: translateY(-2px);
-}
-
-/* Footer Styles */

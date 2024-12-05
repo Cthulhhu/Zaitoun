@@ -1,159 +1,137 @@
 "use strict";
 
-// Main initialization when document is ready
 $(document).ready(function() {
-    initializeSlideshow();
-    initializeMenuTabs();
-    loadDailySpecials();
-    initializeReservationSystem();
-    initializePreferences();
-    loadUserPreferences();
+    // Initialize jQuery UI Tabs
+    $("#menu-tabs").tabs();
+
+    // Initialize Slick Slider
+    $('.gallery-slider').slick({
+        dots: true,
+        infinite: true,
+        speed: 500,
+        fade: true,
+        cssEase: 'linear',
+        autoplay: true,
+        autoplaySpeed: 3000,
+        prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+        nextArrow: '<button type="button" class="slick-next">Next</button>'
+    });
+
+    // Load menu items
+    loadMenuItems();
+
+    // Initialize theme preference
+    initializeThemePreference();
+
+    // Theme toggle functionality
+    $('#theme-button').click(function() {
+        toggleTheme();
+    });
+
+    // Reservation form handling
+    $('#reservation-form').submit(function(e) {
+        e.preventDefault();
+        handleReservation();
+    });
+
+    // Smooth scrolling for navigation
+    $('nav a').click(function(e) {
+        e.preventDefault();
+        const target = $(this).attr('href');
+        $('html, body').animate({
+            scrollTop: $(target).offset().top - 80
+        }, 800);
+    });
+
+    // Initialize gallery images
+    initializeGallery();
 });
 
-// Slideshow Implementation
-function initializeSlideshow() {
-    const slides = [
-        { image: "/api/placeholder/1280/500", caption: "Welcome to Zaitoun" },
-        { image: "/api/placeholder/1280/500", caption: "Authentic Palestinian Cuisine" },
-        { image: "/api/placeholder/1280/500", caption: "Traditional Family Recipes" }
-    ];
-
-    const slideshow = $(".slideshow-container");
-    slideshow.empty();
-
-    slides.forEach((slide, index) => {
-        const slideDiv = $("<div>", {
-            class: "slide",
-            css: { display: index === 0 ? "block" : "none" }
-        });
-
-        $("<img>", {
-            src: slide.image,
-            alt: slide.caption
-        }).appendTo(slideDiv);
-
-        $("<div>", {
-            class: "slide-caption",
-            text: slide.caption
-        }).appendTo(slideDiv);
-
-        slideshow.append(slideDiv);
+// Function to load menu items
+function loadMenuItems() {
+    $.getJSON('data/specials.json', function(data) {
+        populateMenuSection('appetizers', data.appetizers);
+        populateMenuSection('main-courses', data.mainCourses);
+        populateMenuSection('desserts', data.desserts);
     });
-
-    // Slideshow animation
-    let currentSlide = 0;
-    setInterval(() => {
-        $(".slide").fadeOut(1000);
-        currentSlide = (currentSlide + 1) % slides.length;
-        $(".slide").eq(currentSlide).fadeIn(1000);
-    }, 5000);
 }
 
-// Menu Tabs Implementation
-function initializeMenuTabs() {
-    const menuCategories = [
-        {
-            name: "Appetizers",
-            items: [
-                { name: "Hummus", price: "8", description: "Creamy chickpea dip with olive oil and pine nuts" },
-                { name: "Mutabal", price: "9", description: "Smoky eggplant dip with tahini and olive oil" },
-                { name: "Falafel", price: "8", description: "Crispy chickpea fritters with tahini sauce" }
-            ]
-        },
-        {
-            name: "Main Courses",
-            items: [
-                { name: "Musakhan", price: "28", description: "Roasted chicken with sumac and caramelized onions" },
-                { name: "Maqluba", price: "32", description: "Upside-down rice with lamb and vegetables" },
-                { name: "Mansaf", price: "34", description: "Traditional lamb dish with aged yogurt sauce" }
-            ]
-        },
-        {
-            name: "From Our Taboon",
-            items: [
-                { name: "Za'atar Manakish", price: "6", description: "Fresh bread with za'atar and olive oil" },
-                { name: "Lahm Bi Ajeen", price: "12", description: "Meat flatbread with pine nuts" },
-                { name: "Muhamara Fatayer", price: "10", description: "Spiced walnut and pepper pastries" }
-            ]
-        },
-        {
-            name: "Desserts",
-            items: [
-                { name: "Knafeh", price: "12", description: "Sweet cheese pastry with orange blossom syrup" },
-                { name: "Qatayef", price: "10", description: "Sweet stuffed pancakes with nuts" },
-                { name: "Baklawa", price: "8", description: "Layered phyllo with nuts and honey syrup" }
-            ]
-        }
-    ];
-
-    // Create tabs structure
-    const tabsList = $("<ul>");
-    const tabPanels = $("<div>");
-
-    menuCategories.forEach((category, index) => {
-        // Add tab
-        const tabLi = $("<li>");
-        const tabLink = $("<a>")
-            .attr("href", `#menu-${index}`)
-            .text(category.name);
-        tabLi.append(tabLink);
-        tabsList.append(tabLi);
-
-        // Add panel
-        const panel = $("<div>")
-            .attr("id", `menu-${index}`);
-        
-        const menuItems = category.items.map(item => `
+function populateMenuSection(sectionId, items) {
+    const section = $(`#${sectionId}`);
+    let html = '';
+    
+    items.forEach(item => {
+        html += `
             <div class="menu-item">
-                <h3>${item.name} - $${item.price}</h3>
-                <p>${item.description}</p>
+                <img src="images/${item.image}" alt="${item.name}">
+                <div class="menu-item-details">
+                    <h3>${item.name}</h3>
+                    <p class="arabic-name">${item.arabicName}</p>
+                    <p class="description">${item.description}</p>
+                    <span class="price">$${item.price.toFixed(2)}</span>
+                </div>
             </div>
-        `).join("");
-
-        panel.html(menuItems);
-        tabPanels.append(panel);
+        `;
     });
-
-    $("#menu-tabs")
-        .append(tabsList)
-        .append(tabPanels)
-        .tabs();
+    
+    section.html(html);
 }
 
-// Rest of the JavaScript functions remain the same (loadDailySpecials, initializeReservationSystem, etc.)
-// Only changing the variable names and messages to match our Palestinian restaurant theme
+// Function to initialize gallery
+function initializeGallery() {
+    const galleryImages = [
+        'gallery-1.jpg',
+        'gallery-2.jpg',
+        'gallery-3.jpg',
+        'gallery-4.jpg',
+        'gallery-5.jpg'
+    ];
 
-function loadDailySpecials() {
-    $.ajax({
-        url: "data/specials.json",
-        method: "GET",
-        success: function(data) {
-            const specialsContainer = $(".specials-container");
-            specialsContainer.empty();
-
-            data.specials.forEach(special => {
-                const specialCard = $(`
-                    <div class="special-card">
-                        <img src="${special.image}" alt="${special.name}">
-                        <h3>${special.name}</h3>
-                        <p>${special.description}</p>
-                        <p class="price">$${special.price.toFixed(2)}</p>
-                        ${special.dietary.length ? `
-                            <div class="dietary-tags">
-                                ${special.dietary.map(tag => `<span class="dietary-tag">${tag}</span>`).join("")}
-                            </div>
-                        ` : ""}
-                    </div>
-                `);
-                specialsContainer.append(specialCard);
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error("Error loading specials:", error);
-            $(".specials-container").html("<p>Unable to load daily specials. Please check back later.</p>");
-        }
+    const slider = $('.gallery-slider');
+    galleryImages.forEach(image => {
+        slider.append(`<div><img src="images/${image}" alt="Gallery Image"></div>`);
     });
 }
 
-// The remaining functions (initializeReservationSystem, initializePreferences, loadUserPreferences) 
-// stay the same as they handle generic functionality
+// Theme functionality
+function initializeThemePreference() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+}
+
+function toggleTheme() {
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    applyTheme(newTheme);
+}
+
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        $('body').addClass('dark-theme');
+    } else {
+        $('body').removeClass('dark-theme');
+    }
+    localStorage.setItem('theme', theme);
+}
+
+// Reservation handling
+function handleReservation() {
+    const formData = {
+        name: $('#name').val(),
+        email: $('#email').val(),
+        phone: $('#phone').val(),
+        date: $('#date').val(),
+        time: $('#time').val(),
+        guests: $('#guests').val(),
+        specialRequests: $('#special-requests').val()
+    };
+
+    // Store reservation in localStorage
+    const reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+    reservations.push(formData);
+    localStorage.setItem('reservations', JSON.stringify(reservations));
+
+    // Show confirmation
+    alert('Thank you for your reservation! We will contact you shortly to confirm.');
+    $('#reservation-form')[0].reset();
+}
