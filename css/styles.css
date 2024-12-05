@@ -1,0 +1,262 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --palestinian-red: #E4312b;
+    --palestinian-green: #149954;
+    --white: #FFFFFF;
+    --black: #333333;
+    --accent-gold: #DAA520;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--black);
+    background-color: var(--white);
+}
+
+/* Container width as per requirements */
+.header-content,
+main section,
+.footer-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--white);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 4px solid var(--palestinian-green);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo h1 {
+    font-size: 2.5em;
+    color: var(--palestinian-red);
+    font-family: 'Georgia', serif;
+}
+
+.tagline {
+    color: var(--palestinian-green);
+    font-style: italic;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--black);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--palestinian-red);
+}
+
+/* Hero Section */
+.hero-section {
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 4px solid var(--palestinian-red);
+}
+
+.slideshow-container {
+    width: 100%;
+    height: 100%;
+}
+
+/* About Section */
+.about-section {
+    padding: 60px 20px;
+    background-color: var(--white);
+    border-bottom: 2px solid var(--palestinian-green);
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.chef-feature {
+    margin-top: 40px;
+    padding: 20px;
+    border-left: 4px solid var(--palestinian-red);
+}
+
+/* Menu Section */
+.menu-section {
+    padding: 60px 20px;
+    background: linear-gradient(to bottom, var(--white) 0%, rgba(20, 153, 84, 0.1) 100%);
+}
+
+#menu-tabs {
+    margin-top: 30px;
+    border: none;
+}
+
+.ui-tabs .ui-tabs-nav {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.ui-tabs .ui-tabs-nav li {
+    background: var(--white);
+    border: 2px solid var(--palestinian-green);
+    border-radius: 4px;
+    margin: 0 5px;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    background: var(--palestinian-green);
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a {
+    color: var(--white);
+}
+
+/* Specials Section */
+.specials-section {
+    padding: 60px 20px;
+    background-color: var(--white);
+    border-top: 2px solid var(--palestinian-red);
+}
+
+.specials-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.special-card {
+    border: 2px solid var(--palestinian-green);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.special-card:hover {
+    transform: translateY(-5px);
+}
+
+.special-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.special-card h3 {
+    color: var(--palestinian-red);
+    padding: 15px;
+}
+
+/* Reservations Section */
+.reservations-section {
+    padding: 60px 20px;
+    background: linear-gradient(to bottom, rgba(228, 49, 43, 0.1) 0%, var(--white) 100%);
+}
+
+.reservation-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    border: 2px solid var(--palestinian-green);
+    border-radius: 8px;
+    background: var(--white);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--palestinian-green);
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* Preferences Section */
+.preferences-section {
+    padding: 60px 20px;
+    background-color: var(--white);
+    border-top: 2px solid var(--palestinian-green);
+}
+
+.preferences-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    border: 2px solid var(--palestinian-red);
+    border-radius: 8px;
+}
+
+/* Button Styles */
+.btn-primary,
+.btn-secondary {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--palestinian-green);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: #107a44;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--palestinian-red);
+    color: var(--white);
+}
+
+.btn-secondary:hover {
+    background-color: #c42820;
+    transform: translateY(-2px);
+}
+
+/* Footer Styles */

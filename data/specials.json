@@ -1,0 +1,28 @@
+{
+    "specials": [
+      {
+        "id": 1,
+        "name": "Musakhan",
+        "description": "Traditional Palestinian roasted chicken with caramelized onions, sumac, and pine nuts served on fresh taboon bread",
+        "price": 28.00,
+        "image": "/api/placeholder/300/200",
+        "dietary": ["halal"]
+      },
+      {
+        "id": 2,
+        "name": "Maqluba",
+        "description": "Upside-down layered dish of rice, eggplant, cauliflower, and lamb, garnished with toasted almonds and parsley",
+        "price": 32.00,
+        "image": "/api/placeholder/300/200",
+        "dietary": ["halal"]
+      },
+      {
+        "id": 3,
+        "name": "Kunafa Nabulsiya",
+        "description": "Traditional Palestinian dessert made with shredded phyllo dough, sweet cheese, and aromatic syrup, topped with pistachios",
+        "price": 12.00,
+        "image": "/api/placeholder/300/200",
+        "dietary": ["vegetarian"]
+      }
+    ]
+  }

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zaitoun - Authentic Palestinian Cuisine</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
+    
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <h1>Zaitoun</h1>
+                <p class="tagline">Traditional Palestinian Cuisine</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#specials">Daily Specials</a></li>
+                    <li><a href="#reservations">Reservations</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section with Slideshow -->
+        <section id="hero" class="hero-section">
+            <div class="slideshow-container">
+                <!-- Slideshow will be populated via JavaScript -->
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <h2>Welcome to Zaitoun</h2>
+            <div class="about-content">
+                <p>Experience the warmth and generosity of Palestinian hospitality through our carefully crafted dishes. At Zaitoun, we honor time-tested family recipes passed down through generations, bringing the authentic tastes of Palestine to your table.</p>
+                <div class="chef-feature">
+                    <h3>Meet Our Chef</h3>
+                    <p>Chef Layla Mahmoud brings her grandmother's cherished recipes to life, combining traditional Palestinian cooking methods with contemporary presentation. Each dish tells a story of our heritage, culture, and the loving care that goes into Palestinian home cooking.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section with jQuery UI Tabs -->
+        <section id="menu" class="menu-section">
+            <h2>Our Menu</h2>
+            <div id="menu-tabs">
+                <!-- Tabs will be populated via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Daily Specials (AJAX Content) -->
+        <section id="specials" class="specials-section">
+            <h2>Today's Specials</h2>
+            <div class="specials-container">
+                <!-- Content will be loaded via AJAX -->
+            </div>
+        </section>
+
+        <!-- Reservations Section -->
+        <section id="reservations" class="reservations-section">
+            <h2>Make a Reservation</h2>
+            <div class="reservation-form">
+                <form id="reserve-table">
+                    <div class="form-group">
+                        <label for="reservation-date">Date:</label>
+                        <input type="text" id="reservation-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reservation-time">Time:</label>
+                        <select id="reservation-time" required>
+                            <option value="">Select a time</option>
+                            <option value="17:00">5:00 PM</option>
+                            <option value="17:30">5:30 PM</option>
+                            <option value="18:00">6:00 PM</option>
+                            <option value="18:30">6:30 PM</option>
+                            <option value="19:00">7:00 PM</option>
+                            <option value="19:30">7:30 PM</option>
+                            <option value="20:00">8:00 PM</option>
+                            <option value="20:30">8:30 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="party-size">Party Size:</label>
+                        <select id="party-size" required>
+                            <option value="">Select party size</option>
+                            <option value="1">1 person</option>
+                            <option value="2">2 people</option>
+                            <option value="3">3 people</option>
+                            <option value="4">4 people</option>
+                            <option value="5">5 people</option>
+                            <option value="6">6 people</option>
+                            <option value="7">7 people</option>
+                            <option value="8">8 people</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-name">Name:</label>
+                        <input type="text" id="customer-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-email">Email:</label>
+                        <input type="email" id="customer-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-phone">Phone:</label>
+                        <input type="tel" id="customer-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="special-requests">Special Requests:</label>
+                        <textarea id="special-requests"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Reserve Table</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Customer Preferences Section (Web Storage) -->
+        <section id="preferences" class="preferences-section">
+            <h2>Your Dining Preferences</h2>
+            <div class="preferences-container">
+                <form id="preferences-form">
+                    <div class="form-group">
+                        <label for="dietary-restrictions">Dietary Preferences:</label>
+                        <select id="dietary-restrictions" multiple>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="halal">Halal</option>
+                            <option value="gluten-free">Gluten-Free</option>
+                            <option value="dairy-free">Dairy-Free</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="spice-preference">Spice Preference:</label>
+                        <div id="spice-slider"></div>
+                    </div>
+                    <button type="submit" class="btn-secondary">Save Preferences</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <p>123 Heritage Lane</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@zaitounrestaurant.com</p>
+            </div>
+            <div class="hours">
+                <h3>Hours</h3>
+                <p>Tuesday - Sunday: 5:00 PM - 10:00 PM</p>
+                <p>Closed Mondays</p>
+            </div>
+            <div class="social-links">
+                <h3>Follow Us</h3>
+                <a href="#" class="social-link">Facebook</a>
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">Twitter</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Zaitoun Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
