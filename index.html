@@ -18,11 +18,13 @@
     <script src="js/main.js" defer></script>
 </head>
 <body>
-    <div id="theme-toggle">
-        <button id="theme-button">Toggle Theme</button>
-    </div>
-
-    <header>
+    <header class="site-header">
+        <div class="theme-toggle">
+            <button id="theme-button" aria-label="Toggle theme">
+                <span class="theme-icon">🌓</span>
+                <span class="theme-text">Toggle Theme</span>
+            </button>
+        </div>
         <nav>
             <div class="logo">
                 <h1>زيتون</h1>
@@ -42,7 +44,6 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section id="home" class="hero">
             <div class="hero-content">
                 <h2>Welcome to Zaitoun</h2>
@@ -51,23 +52,19 @@
             </div>
         </section>
 
-        <!-- About Section -->
         <section id="about" class="about">
-            <div class="pattern-overlay">
-                <h2>Our Story</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>At Zaitoun, we bring the rich culinary heritage of Palestine to your table. Our recipes have been passed down through generations, each dish telling a story of our culture, tradition, and love for authentic flavors.</p>
-                        <p>We take pride in using traditional cooking methods and the finest ingredients, including our signature Palestinian olive oil, fresh herbs, and authentic spices imported directly from Palestine.</p>
-                    </div>
-                    <div class="about-image">
-                        <img src="images/restaurant-interior.jpg" alt="Zaitoun Restaurant Interior">
-                    </div>
+            <h2>Our Story</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>At Zaitoun, we bring the rich culinary heritage of Palestine to your table. Our recipes have been passed down through generations, each dish telling a story of our culture, tradition, and love for authentic flavors.</p>
+                    <p>We take pride in using traditional cooking methods and the finest ingredients, including our signature Palestinian olive oil, fresh herbs, and authentic spices imported directly from Palestine.</p>
+                </div>
+                <div class="about-image">
+                    <img src="images/about-spices.jpg" alt="Traditional Palestinian Spices Market" loading="lazy">
                 </div>
             </div>
         </section>
 
-        <!-- Menu Section -->
         <section id="menu" class="menu">
             <h2>Our Menu</h2>
             <div id="menu-tabs">
@@ -82,31 +79,28 @@
             </div>
         </section>
 
-        <!-- Gallery Section -->
         <section id="gallery" class="gallery">
-            <h2>Gallery</h2>
-            <div class="gallery-slider">
-                <!-- Will be populated via JavaScript -->
-            </div>
+            <h2>Our Gallery</h2>
+            <div class="gallery-slider"></div>
         </section>
 
-        <!-- Specials Section -->
         <section id="specials" class="specials">
-            <h2>Today's Specials</h2>
-            <div class="special-items">
-                <!-- Will be populated via JavaScript -->
+            <h2>Today's Special</h2>
+            <div class="special-content"></div>
+            <button id="load-specials" class="load-button">View Today's Specials</button>
+                <div class="loading-spinner" style="display: none;">Loading...</div>
+                <div class="special-items"></div>
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section id="contact" class="contact">
             <h2>Contact Us</h2>
             <div class="contact-container">
                 <div class="contact-info">
                     <h3>Reserve Your Table</h3>
-                    <p>📞 (555) 123-4567</p>
-                    <p>📧 info@zaitoun.com</p>
-                    <p>📍 123 Mediterranean Ave</p>
+                    <p><span class="icon">📞</span> (555) 123-4567</p>
+                    <p><span class="icon">📧</span> info@zaitoun.com</p>
+                    <p><span class="icon">📍</span> 123 Mediterranean Ave</p>
                     <div class="hours">
                         <h4>Hours</h4>
                         <p>Monday - Thursday: 11am - 10pm</p>

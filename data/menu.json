@@ -1,0 +1,171 @@
+{
+    "appetizers": [
+        {
+            "name": "Hummus",
+            "arabicName": "حمص",
+            "description": "Creamy chickpea dip with tahini, olive oil, and our special spice blend",
+            "price": 8.99,
+            "image": "hummus.jpg",
+            "tags": ["Popular", "Vegetarian"]
+        },
+        {
+            "name": "Mutabbal",
+            "arabicName": "متبل",
+            "description": "Smoky eggplant dip with tahini, garlic, and olive oil",
+            "price": 8.99,
+            "image": "mutabbal.jpg",
+            "tags": ["Vegetarian"]
+        },
+        {
+            "name": "Falafel",
+            "arabicName": "فلافل",
+            "description": "Crispy chickpea fritters served with tahini sauce",
+            "price": 7.99,
+            "image": "falafel.jpg",
+            "tags": ["Bestseller", "Vegetarian"]
+        },
+        {
+            "name": "Fattoush",
+            "arabicName": "فتوش",
+            "description": "Fresh salad with toasted pita bread, sumac, and pomegranate molasses",
+            "price": 8.99,
+            "image": "fattoush.jpg",
+            "tags": ["Fresh", "Vegan"]
+        },
+        {
+            "name": "Tabbouleh",
+            "arabicName": "تبولة",
+            "description": "Parsley and bulgur salad with tomatoes, mint, and lemon dressing",
+            "price": 8.99,
+            "image": "tabbouleh.jpg",
+            "tags": ["Fresh", "Vegan", "Healthy"]
+        },
+        {
+            "name": "Zaatar Manakeesh",
+            "arabicName": "مناقيش زعتر",
+            "description": "Flatbread topped with zaatar herb blend and olive oil",
+            "price": 7.99,
+            "image": "zaatar-manakeesh.jpg",
+            "tags": ["Traditional", "Vegetarian"]
+        }
+    ],
+    "mainCourses": [
+        {
+            "name": "Musakhan",
+            "arabicName": "مسخن",
+            "description": "Roasted chicken with caramelized onions and sumac on taboon bread",
+            "price": 24.99,
+            "image": "musakhan.jpg",
+            "tags": ["Signature", "Traditional"]
+        },
+        {
+            "name": "Mansaf",
+            "arabicName": "منسف",
+            "description": "Traditional lamb cooked in fermented dried yogurt sauce served with rice",
+            "price": 27.99,
+            "image": "mansaf.jpg",
+            "tags": ["Popular", "Traditional"]
+        },
+        {
+            "name": "Maqluba",
+            "arabicName": "مقلوبة",
+            "description": "Upside-down rice dish with chicken, eggplant, and cauliflower",
+            "price": 23.99,
+            "image": "maqluba.jpg",
+            "tags": ["Chef's Special"]
+        },
+        {
+            "name": "Djaj Mahshi",
+            "arabicName": "دجاج محشي",
+            "description": "Stuffed chicken with aromatic rice, nuts, and Palestinian spices",
+            "price": 25.99,
+            "image": "djaj-mahshi.jpg",
+            "tags": ["Chef's Special", "Traditional"]
+        },
+        {
+            "name": "Kafta",
+            "arabicName": "كفتة",
+            "description": "Grilled seasoned minced lamb with herbs and spices",
+            "price": 22.99,
+            "image": "kafta.jpg",
+            "tags": ["Spicy", "Popular"]
+        },
+        {
+            "name": "Sayadieh",
+            "arabicName": "صيادية",
+            "description": "Fish and rice dish with caramelized onions and aromatic spices",
+            "price": 26.99,
+            "image": "sayadieh.jpg",
+            "tags": ["Seafood", "Traditional"]
+        }
+    ],
+    "desserts": [
+        {
+            "name": "Knafeh",
+            "arabicName": "كنافة",
+            "description": "Sweet cheese pastry with crispy shredded phyllo and orange blossom syrup",
+            "price": 9.99,
+            "image": "knafeh.jpg",
+            "tags": ["Bestseller", "Traditional"]
+        },
+        {
+            "name": "Qatayef",
+            "arabicName": "قطايف",
+            "description": "Sweet dumplings filled with walnuts or cheese, drizzled with syrup",
+            "price": 8.99,
+            "image": "qatayef.jpg",
+            "tags": ["Seasonal", "Popular"]
+        },
+        {
+            "name": "Baklawa",
+            "arabicName": "بقلاوة",
+            "description": "Layered phyllo pastry filled with nuts and honey syrup",
+            "price": 7.99,
+            "image": "baklawa.jpg",
+            "tags": ["Traditional"]
+        },
+        {
+            "name": "Mahalabiya",
+            "arabicName": "مهلبية",
+            "description": "Creamy milk pudding topped with pistachios and rose water",
+            "price": 6.99,
+            "image": "mahalabiya.jpg",
+            "tags": ["Light", "Traditional"]
+        },
+        {
+            "name": "Zalabia",
+            "arabicName": "زلابية",
+            "description": "Deep-fried dough fritters soaked in sweet syrup",
+            "price": 7.99,
+            "image": "zalabia.jpg",
+            "tags": ["Sweet", "Popular"]
+        },
+        {
+            "name": "Maamoul",
+            "arabicName": "معمول",
+            "description": "Shortbread cookies filled with dates, pistachios, or walnuts",
+            "price": 8.99,
+            "image": "maamoul.jpg",
+            "tags": ["Traditional", "Bestseller"]
+        }
+    ],
+    "specials": [
+        {
+            "name": "Chef's Special Mansaf",
+            "arabicName": "منسف الشيف",
+            "description": "Our signature Mansaf made with premium Australian lamb, served with aged jameed sauce and aromatic rice",
+            "price": 32.99,
+            "image": "mansaf-special.jpg",
+            "tags": ["Chef's Special", "Limited Time"]
+        },
+        {
+            "name": "Seasonal Knafeh",
+            "arabicName": "كنافة موسمية",
+            "description": "Traditional Knafeh with a seasonal twist - featuring pistachios and orange blossom honey",
+            "price": 12.99,
+            "image": "kunafa-special.jpg",
+            "tags": ["Seasonal", "Dessert"]
+        }
+    ]
+}
+
