@@ -47,15 +47,17 @@ function initializeMenuTabs() {
 
 // Load Menu Items from JSON
 function loadMenuItems() {
+    $('.menu-section').append('<div class="loading">Loading...</div>');
+    
     $.ajax({
         url: 'data/menu.json',
         method: 'GET',
         dataType: 'json',
         success: function(data) {
+            $('.loading').remove();
             populateMenuSection('appetizers', data.appetizers);
             populateMenuSection('main-courses', data.mainCourses);
             populateMenuSection('desserts', data.desserts);
-            // Specials are now loaded on button click
         },
         error: function(xhr, status, error) {
             console.error('Error loading menu items:', error);
@@ -102,9 +104,8 @@ function populateSpecials(specials) {
 
 function populateMenuSection(sectionId, items) {
     const section = $(`#${sectionId}`);
-    section.empty(); // Clear existing content
+    section.empty();
     
-    // Create wrapper for grid layout
     const wrapper = $('<div class="menu-section"></div>');
     
     items.forEach(item => {
@@ -139,6 +140,7 @@ function populateMenuSection(sectionId, items) {
     
     section.append(wrapper);
 }
+
 // Gallery Functionality
 function initializeGallery() {
     const galleryImages = [
@@ -170,6 +172,72 @@ function initializeGallery() {
     });
 }
 
+// Form Validation
+function validateForm() {
+    let isValid = true;
+    const errors = [];
+
+    // Name validation
+    const name = $('#name').val().trim();
+    if (name.length < 2) {
+        isValid = false;
+        errors.push('Name must be at least 2 characters long');
+        $('#name').addClass('error-input');
+    } else {
+        $('#name').removeClass('error-input');
+    }
+
+    // Email validation
+    const email = $('#email').val().trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        isValid = false;
+        errors.push('Please enter a valid email address');
+        $('#email').addClass('error-input');
+    } else {
+        $('#email').removeClass('error-input');
+    }
+
+    // Phone validation
+    const phone = $('#phone').val().trim();
+    const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    if (!phoneRegex.test(phone)) {
+        isValid = false;
+        errors.push('Please enter a valid phone number');
+        $('#phone').addClass('error-input');
+    } else {
+        $('#phone').removeClass('error-input');
+    }
+
+    // Date validation
+    const selectedDate = new Date($('#date').val());
+    const today = new Date();
+    if (selectedDate < today) {
+        isValid = false;
+        errors.push('Please select a future date');
+        $('#date').addClass('error-input');
+    } else {
+        $('#date').removeClass('error-input');
+    }
+
+    // Guests validation
+    const guests = parseInt($('#guests').val());
+    if (isNaN(guests) || guests < 1 || guests > 10) {
+        isValid = false;
+        errors.push('Number of guests must be between 1 and 10');
+        $('#guests').addClass('error-input');
+    } else {
+        $('#guests').removeClass('error-input');
+    }
+
+    // Display errors if any
+    if (!isValid) {
+        showErrorMessage('reservation-form', errors.join('<br>'));
+    }
+
+    return isValid;
+}
+
 // Event Listeners
 function initializeEventListeners() {
     // Smooth scrolling for navigation
@@ -184,7 +252,9 @@ function initializeEventListeners() {
     // Reservation form handling
     $('#reservation-form').submit(function(e) {
         e.preventDefault();
-        handleReservation();
+        if (validateForm()) {
+            handleReservation();
+        }
     });
 
     // Order button handling
@@ -192,12 +262,13 @@ function initializeEventListeners() {
         const itemName = $(this).data('item');
         handleOrder(itemName);
     });
+
+    // Load specials button handling
     $('#load-specials').one('click', function() {
         const button = $(this);
         const loadingSpinner = $('.loading-spinner');
         const specialItems = $('.special-items');
 
-        // Disable button and show loading state
         button.prop('disabled', true);
         button.text('Loading...');
         loadingSpinner.show();
@@ -206,11 +277,8 @@ function initializeEventListeners() {
             url: 'data/menu.json',
             method: 'GET',
             success: function(data) {
-                // Hide loading UI
                 loadingSpinner.hide();
                 button.fadeOut();
-                
-                // Populate and show specials
                 populateSpecials(data.specials);
                 specialItems.addClass('loaded');
             },
@@ -222,22 +290,26 @@ function initializeEventListeners() {
             }
         });
     });
+
+    // Add view orders button
+    addViewOrdersButton();
+    // Add past reservations button
+    addPastReservationsButton();
 }
 
 // Reservation Handling
 function handleReservation() {
     const formData = {
-        name: $('#name').val(),
-        email: $('#email').val(),
-        phone: $('#phone').val(),
+        name: $('#name').val().trim(),
+        email: $('#email').val().trim(),
+        phone: $('#phone').val().trim(),
         date: $('#date').val(),
         time: $('#time').val(),
         guests: $('#guests').val(),
-        specialRequests: $('#special-requests').val(),
+        specialRequests: $('#special-requests').val().trim(),
         timestamp: new Date().toISOString()
     };
 
-    // Store reservation in localStorage
     try {
         let reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
         reservations.push(formData);
@@ -245,6 +317,7 @@ function handleReservation() {
         
         showSuccessMessage('Reservation successful! We will contact you shortly to confirm.');
         $('#reservation-form')[0].reset();
+        $('.error-input').removeClass('error-input');
     } catch (error) {
         console.error('Error saving reservation:', error);
         showErrorMessage('reservation-form', 'Unable to save your reservation. Please try again.');
@@ -253,77 +326,202 @@ function handleReservation() {
 
 // Order Handling
 function handleOrder(itemName) {
-    // Get existing orders from storage
     let orders = JSON.parse(localStorage.getItem('orders') || '[]');
     
-    // Add new order
     orders.push({
         item: itemName,
         timestamp: new Date().toISOString()
     });
 
-    // Save back to storage
     localStorage.setItem('orders', JSON.stringify(orders));
-    
     showSuccessMessage(`"${itemName}" has been added to your order!`);
 }
 
-// Utility Functions
-function showSuccessMessage(message) {
-    // Create a custom success message element
-    const successMessage = $('<div>')
-        .addClass('success-message')
-        .text(message)
-        .css({
-            position: 'fixed',
-            top: '20px',
-            right: '20px',
-            background: 'var(--palestinian-green)',
-            color: 'white',
-            padding: '1rem',
-            borderRadius: 'var(--border-radius)',
-            zIndex: 9999,
-            opacity: 0,
-            transform: 'translateY(-20px)'
+// Add View Orders Button
+function addViewOrdersButton() {
+    const button = $('<button>')
+        .addClass('view-orders-btn')
+        .text('View Order History')
+        .insertAfter('#menu-tabs');
+
+    button.on('click', displayOrderHistory);
+}
+
+// Order History Display
+function displayOrderHistory() {
+    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    
+    const modal = $('<div>').addClass('modal');
+    const modalContent = $('<div>').addClass('modal-content');
+    const closeBtn = $('<span>').addClass('close-modal').html('&times;');
+    
+    modalContent.append(closeBtn);
+    modalContent.append('<h3>Order History</h3>');
+
+    if (orders.length === 0) {
+        modalContent.append('<p>No order history found.</p>');
+    } else {
+        const ordersList = $('<div>').addClass('orders-list');
+        
+        orders.reverse().forEach(order => {
+            const date = new Date(order.timestamp);
+            const formattedDate = date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const orderCard = $(`
+                <div class="order-card">
+                    <h4>${order.item}</h4>
+                    <p><strong>Ordered:</strong> ${formattedDate}</p>
+                </div>
+            `);
+            
+            ordersList.append(orderCard);
         });
+        
+        modalContent.append(ordersList);
+    }
 
-    // Add to body
-    $('body').append(successMessage);
+    modal.append(modalContent);
+    $('body').append(modal);
 
-    // Animate in
-    successMessage.animate({
-        opacity: 1,
-        transform: 'translateY(0)'
-    }, 300);
+    setTimeout(() => modal.addClass('show'), 10);
 
-    // Remove after delay
-    setTimeout(() => {
+    closeBtn.on('click', () => {
+        modal.removeClass('show');
+        setTimeout(() => modal.remove(), 300);
+    });
+
+    modal.on('click', function(e) {
+        if (e.target === this) {
+            modal.removeClass('show');
+            setTimeout(() => modal.remove(), 300);
+        }
+    });
+}
+
+// Past Reservations 
+function addPastReservationsButton() {
+    const button = $('<button>')
+        .addClass('view-reservations-btn')
+        .text('View Past Reservations')
+        .insertAfter('#reservation-form');
+
+    button.on('click', displayPastReservations);
+}
+
+function displayPastReservations() {
+    const reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+    
+    const modal = $('<div>').addClass('modal');
+    const modalContent = $('<div>').addClass('modal-content');
+    const closeBtn = $('<span>').addClass('close-modal').html('&times;');
+    
+    modalContent.append(closeBtn);
+    modalContent.append('<h3>Past Reservations</h3>');
+
+    if (reservations.length === 0) {
+        modalContent.append('<p>No past reservations found.</p>');
+    } else {
+        const reservationsList = $('<div>').addClass('reservations-list');
+        
+        reservations.reverse().forEach(reservation => {
+            const date = new Date(reservation.date);
+            const formattedDate = date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const reservationCard = $(`
+                <div class="reservation-card">
+                    <h4>${reservation.name}</h4>
+                    <p><strong>Date:</strong> ${formattedDate}</p>
+                    <p><strong>Time:</strong> ${reservation.time}</p>
+                    <p><strong>Guests:</strong> ${reservation.guests}</p>
+                    ${reservation.specialRequests ? `<p><strong>Special Requests:</strong> ${reservation.specialRequests}</p>` : ''}
+                </div>
+            `);
+            
+            reservationsList.append(reservationCard);
+        });
+        
+        modalContent.append(reservationsList);
+    }
+
+    modal.append(modalContent);
+    $('body').append(modal);
+
+    setTimeout(() => modal.addClass('show'), 10);
+
+    closeBtn.on('click', () => {
+        modal.removeClass('show');
+        setTimeout(() => modal.remove(), 300);
+    });
+
+    modal.on('click', function(e) {
+        if (e.target === this) {
+            modal.removeClass('show');
+            setTimeout(() => modal.remove(), 300);
+        }
+    });
+    }
+    
+    // Utility Functions
+    function showSuccessMessage(message) {
+        const successMessage = $('<div>')
+            .addClass('success-message')
+            .text(message)
+            .css({
+                position: 'fixed',
+                top: '20px',
+                right: '20px',
+                background: 'var(--palestinian-green)',
+                color: 'white',
+                padding: '1rem',
+                borderRadius: 'var(--border-radius)',
+                zIndex: 9999,
+                opacity: 0,
+                transform: 'translateY(-20px)'
+            });
+    
+        $('body').append(successMessage);
+    
         successMessage.animate({
-            opacity: 0,
-            transform: 'translateY(-20px)'
-        }, 300, function() {
-            $(this).remove();
-        });
-    }, 3000);
-}
-
-function showErrorMessage(elementId, message) {
-    const errorDiv = $('<div>')
-        .addClass('error-message')
-        .text(message)
-        .css({
-            background: 'var(--palestinian-red)',
-            color: 'white',
-            padding: '1rem',
-            borderRadius: 'var(--border-radius)',
-            marginBottom: '1rem'
-        });
-
-    $(`#${elementId}`).prepend(errorDiv);
-
-    setTimeout(() => {
-        errorDiv.fadeOut(300, function() {
-            $(this).remove();
-        });
-    }, 3000);
-}
+            opacity: 1,
+            transform: 'translateY(0)'
+        }, 300);
+    
+        setTimeout(() => {
+            successMessage.animate({
+                opacity: 0,
+                transform: 'translateY(-20px)'
+            }, 300, function() {
+                $(this).remove();
+            });
+        }, 3000);
+    }
+    
+    function showErrorMessage(elementId, message) {
+        const errorDiv = $('<div>')
+            .addClass('error-message')
+            .html(message)
+            .css({
+                background: 'var(--palestinian-red)',
+                color: 'white',
+                padding: '1rem',
+                borderRadius: 'var(--border-radius)',
+                marginBottom: '1rem'
+            });
+    
+        $(`#${elementId}`).prepend(errorDiv);
+    
+        setTimeout(() => {
+            errorDiv.fadeOut(300, function() {
+                $(this).remove();
+            });
+        }, 3000);
+    }
